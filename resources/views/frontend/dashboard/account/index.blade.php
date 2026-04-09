@@ -8,15 +8,20 @@
             </div>
             <div class="card-body p-0">
                 <p>You can update your account details here.</p>
-                <form method="post" name="enq">
+                <form method="post" name="enq" action="{{ route('profile.update') }}">
+                    @csrf
                     <div class="row mt-30">
                         <div class="form-group col-md-12">
                             <label>Name <span class="required">*</span></label>
-                            <input required="" class="form-control" name="name" type="text" />
+                            <input required="" class="form-control" name="name" type="text"
+                                value="{{ auth('web')->user()->name }}" />
+                            <x-input-error :messages="$errors->get('name')" />
                         </div>
                         <div class="form-group col-md-12">
                             <label>Email Address <span class="required">*</span></label>
-                            <input required="" class="form-control" name="email" type="email" />
+                            <input required="" class="form-control" name="email" type="email"
+                                value="{{ auth('web')->user()->email }}" />
+                            <x-input-error :messages="$errors->get('email')" />
                         </div>
                         <div class="col-md-12">
                             <button type="submit" class="btn btn-fill-out submit font-weight-bold" name="submit"
