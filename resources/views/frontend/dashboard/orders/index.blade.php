@@ -1,7 +1,4 @@
-@extends('frontend.dashboard.dashbboard-app')
-
-@section('dashboard_contents')
-<div class="tab-pane fade active show" id="orders" role="tabpanel" aria-labelledby="orders-tab">
+<div class="tab-pane fade" id="orders" role="tabpanel" aria-labelledby="orders-tab">
     <div class="card">
         <div class="card-header p-0">
             <h3 class="mb-0">Your Orders</h3>
@@ -53,4 +50,3 @@
         </div>
     </div>
 </div>
-@endsection

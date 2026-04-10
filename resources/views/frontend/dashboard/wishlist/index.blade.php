@@ -1,7 +1,4 @@
-@extends('frontend.dashboard.dashbboard-app')
-
-@section('dashboard_contents')
-    <div class="tab-pane fade active show" id="wishlist-tab" role="tabpanel" aria-labelledby="wishlist-detail-tab">
+    <div class="tab-pane fade" id="wishlist" role="tabpanel" aria-labelledby="wishlist-tab">
         <div class="card">
             <div class="card-header p-0">
                 <h4>Wishlist</h4>
@@ -197,4 +194,3 @@
             </div>
         </div>
     </div>
-@endsection

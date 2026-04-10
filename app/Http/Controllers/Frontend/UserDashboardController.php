@@ -14,28 +14,5 @@ class UserDashboardController extends Controller
         return view('frontend.dashboard.main.index');
     }
 
-    public function orders(): View
-    {
-        return view('frontend.dashboard.orders.index');
-    }
 
-    public function trackOrder(): View
-    {
-        return view('frontend.dashboard.track.index');
-    }
-
-    public function address(): View
-    {
-        return view('frontend.dashboard.address.index');
-    }
-
-    public function wishlist(): View
-    {
-        return view('frontend.dashboard.wishlist.index');
-    }
-
-    public function account(): View
-    {
-        return view('frontend.dashboard.account.index');
-    }
 }
