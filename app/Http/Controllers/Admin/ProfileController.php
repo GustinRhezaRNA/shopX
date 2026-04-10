@@ -1,24 +1,22 @@
 <?php
 
-namespace App\Http\Controllers\Frontend;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
 use App\Services\AlertService;
 use App\Traits\FileUploadTrait;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
-use Illuminate\Http\RedirectResponse;
-
-
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class ProfileController extends Controller
 {
+
     use FileUploadTrait;
 
     function index(): View
     {
-        return view('frontend.dashboard.account.index');
+        return view('admin.profile.index');
     }
 
     function profileUpdate(Request $request): RedirectResponse
@@ -26,14 +24,12 @@ class ProfileController extends Controller
 
         $request->validate([
             'name' => ['required', 'string', 'max:50'],
-            'email' => ['required', 'email', 'unique:users,email,' . auth('web')->user()->id],
+            'email' => ['required', 'email', 'unique:users,email,' . auth('admin')->user()->id],
             'avatar' => ['nullable', 'image', 'max:2048']
         ]);
 
-
-
         /** @var \App\Models\User $user */
-        $user = auth('web')->user();
+        $user = auth('admin')->user();
 
 
         $filepath = $this->uploadFile($request->file('avatar'), $user->avatar);
@@ -43,8 +39,8 @@ class ProfileController extends Controller
         $user->email = $request->email;
         $user->save();
         AlertService::updated('Profile Updated Successfully.');
-        return redirect()->back();
 
+        return redirect()->back();
     }
 
     function passwordUpdate(Request $request): RedirectResponse
@@ -56,11 +52,14 @@ class ProfileController extends Controller
         ]);
 
         /** @var \App\Models\User $user */
-        $user = auth('web')->user();
+        $user = auth('admin')->user();
         $user->password = bcrypt($request->password);
         $user->save();
         AlertService::updated('Password Updated Successfully.');
 
         return redirect()->back();
     }
+
+
+
 }

@@ -8,11 +8,16 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Admin Dashboard</title>
     <!-- BEGIN PAGE LEVEL STYLES -->
-    {{-- <link href="./dist/libs/jsvectormap/dist/jsvectormap.css?1750026893" rel="stylesheet" /> --}}
+    {{--
+    <link href="./dist/libs/jsvectormap/dist/jsvectormap.css?1750026893" rel="stylesheet" /> --}}
     <!-- END PAGE LEVEL STYLES -->
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     <link href="{{ asset('assets/admin/css/tabler.css') }}" rel="stylesheet" />
     <!-- END GLOBAL MANDATORY STYLES -->
+
+    <!-- Upload Preview -->
+    <link rel="stylesheet" href={{ asset('assets/global/upload-preview/upload-preview.css') }}>
+
     <!-- BEGIN CUSTOM FONT -->
     <style>
         @import url("https://rsms.me/inter/inter.css");
@@ -64,8 +69,10 @@
     <!-- BEGIN GLOBAL MANDATORY SCRIPTS -->
     <script src="https://code.jquery.com/jquery-4.0.0.min.js"
         integrity="sha256-OaVG6prZf4v69dPg6PhVattBXkcOWQB62pdZ3ORyrao=" crossorigin="anonymous"></script>
+    <script src="{{ asset('assets/global/upload-preview/jquery.uploadPreview.min.js') }}"></script>
     <script src="{{ asset('assets/admin/js/tabler.min.js?1750026893') }}"></script>
     <!-- END GLOBAL MANDATORY SCRIPTS -->
+    @stack('scripts')
 
 </body>
 
