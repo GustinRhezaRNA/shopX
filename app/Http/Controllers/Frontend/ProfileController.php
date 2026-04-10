@@ -30,7 +30,7 @@ class ProfileController extends Controller
             'avatar' => ['nullable', 'image', 'max:2048']
         ]);
 
-
+        
 
         /** @var \App\Models\User $user */
         $user = auth('web')->user();
