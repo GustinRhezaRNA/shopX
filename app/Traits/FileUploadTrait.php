@@ -31,4 +31,24 @@ trait FileUploadTrait
         return $filepath;
 
     }
+
+    public function uploadPrivateFile(UploadedFile $file, ?string $oldPath = null, ?string $path = 'uploads'): ?string
+    {
+        if (!$file->isValid()) {
+            return null;
+        }
+
+        // $ignorePath = ['/default/avatar.jpg'];
+
+        // if ($oldPath && File::exists(public_path($oldPath)) && !in_array($oldPath, $ignorePath)) {
+        //     File::delete(public_path($oldPath));
+        // }
+
+        $filename = Str::uuid() . '.' . $file->getClientOriginalExtension();
+
+        $path = $file->storeAs($path, $filename, 'local');
+
+        return $path;
+
+    }
 }
