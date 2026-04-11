@@ -35,10 +35,14 @@ class KycController extends Controller
             ]
         ]);
 
-        $kyc = new Kyc();
-
+        if (Kyc::where('user_id', auth('web')->user()->id)->exists()) {
+            $kyc = Kyc::where('user_id', auth('web')->user()->id)->first();
+        } else {
+            $kyc = new Kyc();
+        }
 
         $kyc->full_name = $request->full_name;
+        $kyc->status = 'pending';
         $kyc->user_id = auth('web')->user()->id;
         $kyc->date_of_birth = $request->date_of_birth;
         $kyc->gender = $request->gender;
@@ -50,7 +54,7 @@ class KycController extends Controller
 
 
         AlertService::updated('Your KYC has been submitted successfully! Please wait for admin approval ');
-        return redirect()->route('kyc.index');
+        return redirect()->route('vendor.dashboard');
 
     }
 }
