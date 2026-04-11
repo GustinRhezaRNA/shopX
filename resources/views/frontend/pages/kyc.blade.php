@@ -17,7 +17,7 @@
                                     <div class="heading_s1 mb-4">
                                         <h1 class="mb-5">Kyc Verification</h1>
                                     </div>
-                                    <form method="post"  action="{{ route('kyc.test') }}" enctype="multipart/form-data">
+                                    <form method="post"  action="{{ route('kyc.store') }}" enctype="multipart/form-data">
                                         @csrf
                                         <div class="form-group mb-3">
                                             <label class="mb-2 font-weight-bold">Full Name <span class="text-danger">*</span></label>
@@ -28,7 +28,7 @@
 
                                         <div class="form-group mb-3">
                                             <label class="mb-2 font-weight-bold">Date of Birth <span class="text-danger">*</span></label>
-                                            <input type="date" required="" name="date_of_birth" placeholder="Select your date of birth"
+                                            <input type="text" class="datepicker form-control" required="" name="date_of_birth" placeholder="Select your date of birth"
                                                 value="{{ old('date_of_birth') }}" style="color: #6c757d;" />
                                             <x-input-error :messages="$errors->get('date_of_birth')" class="mt-2" />
                                         </div>
