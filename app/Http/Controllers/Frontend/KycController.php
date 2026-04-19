@@ -16,11 +16,12 @@ class KycController extends Controller
 
     function index(): View|RedirectResponse
     {
-        $kycStatus = auth('web')->user()->kyc?->status;
+        $kycStatus = auth('web')->user()?->kyc?->status;
 
         if ($kycStatus === 'approved' || $kycStatus === 'pending') {
             return redirect()->route('vendor.dashboard');
         }
+        
         return view('frontend.pages.kyc');
     }
 
