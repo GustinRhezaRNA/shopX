@@ -872,10 +872,13 @@
                             <div class="dropdown-menu-column">
                                 <a class="dropdown-item" href="{{ route('admin.kyc.index') }}">
                                     All Request
-
                                 </a>
-
-
+                                <a class="dropdown-item" href="{{ route('admin.kyc.pending') }}">
+                                    Pending Request
+                                </a>
+                                <a class="dropdown-item" href="{{ route('admin.kyc.rejected') }}">
+                                    Rejected Request
+                                </a>
                             </div>
                         </div>
                     </div>

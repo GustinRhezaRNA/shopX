@@ -7,7 +7,6 @@ use App\Http\Controllers\Admin\Auth\EmailVerificationPromptController;
 use App\Http\Controllers\Admin\Auth\NewPasswordController;
 use App\Http\Controllers\Admin\Auth\PasswordController;
 use App\Http\Controllers\Admin\Auth\PasswordResetLinkController;
-use App\Http\Controllers\Admin\Auth\RegisteredUserController;
 use App\Http\Controllers\Admin\Auth\VerifyEmailController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\KycRequestController;
@@ -68,6 +67,8 @@ Route::middleware('auth:admin')
 
         // Kyc Routes
         Route::get('/kyc-requests', [KycRequestController::class, 'index'])->name('kyc.index');
+        Route::get('/kyc-requests/pending', [KycRequestController::class, 'pending'])->name('kyc.pending');
+        Route::get('/kyc-requests/rejected', [KycRequestController::class, 'rejected'])->name('kyc.rejected');
         Route::get('/kyc-requests/{kyc_request}', [KycRequestController::class, 'show'])->name('kyc.show');
         Route::get('/kyc-requests/download/{kyc_request}', [KycRequestController::class, 'download'])->name('kyc.download');
         Route::put('/kyc-requests/{kyc_request}/update', [KycRequestController::class, 'update'])->name('kyc.update');
