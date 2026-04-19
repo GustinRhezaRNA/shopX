@@ -26,7 +26,7 @@ class RedirectIfAuthenticated
      */
     public static function using($guard, ...$others)
     {
-        return static::class.':'.implode(',', [$guard, ...$others]);
+        return static::class . ':' . implode(',', [$guard, ...$others]);
     }
 
     /**
@@ -50,7 +50,7 @@ class RedirectIfAuthenticated
     /**
      * Get the path the user should be redirected to when they are authenticated.
      */
-    protected function redirectTo(Request $request, ?string $guard = null): ?string
+    protected function redirectTo(Request $request, string|null $guard = null): ?string
     {
         $guard = $guard ?: 'web';
         return static::$redirectToCallback
@@ -61,9 +61,9 @@ class RedirectIfAuthenticated
     /**
      * Get the default URI the user should be redirected to when they are authenticated.
      */
-    protected function defaultRedirectUri(string $guard): string
+    protected function defaultRedirectUri(string|null $guard): string
     {
-       if ($guard == 'admin') {
+        if ($guard == 'admin') {
             return route('admin.dashboard');
         }
 
