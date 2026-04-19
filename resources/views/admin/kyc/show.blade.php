@@ -68,12 +68,14 @@
                                 <tr>
                                     <td>Change Status</td>
                                     <td>
-                                        <form action="">
+                                        <form action="{{ route('admin.kyc.update', $kyc_request) }}" method="post">
+                                            @csrf
+                                            @method('PUT')
                                             <div class="input-group">
-                                                <select name="" id="" class="form-control">
-                                                    <option value="approved">Approve</option>
-                                                    <option value="rejected">Reject</option>
-                                                    <option value="pending">Pending</option>
+                                                <select name="status" class="form-control">
+                                                    <option value="approved" {{ $kyc_request->status == 'approved' ? 'selected' : '' }}>Approve</option>
+                                                    <option value="rejected" {{ $kyc_request->status == 'rejected' ? 'selected' : '' }}>Reject</option>
+                                                    <option value="pending" {{ $kyc_request->status == 'pending' ? 'selected' : '' }}>Pending</option>
                                                 </select>
                                                 <button class="btn btn-primary" type="submit">Update</button>
                                             </div>

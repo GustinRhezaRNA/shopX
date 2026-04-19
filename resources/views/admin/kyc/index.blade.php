@@ -55,6 +55,9 @@
                         </table>
                     </div>
                 </div>
+                <div class="card-footer">
+                    {{ $kycRequests->links() }}
+                </div>
             </div>
         </div>
     </div>
