@@ -1,0 +1,90 @@
+@extends('admin.layouts.app')
+
+@section('contents')
+    <div class="container-xl">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">All Kyc Requests</h3>
+                <div class="card-actions">
+                    <a href="#" class="btn btn-primary btn-3">
+                        <!-- Download SVG icon from http://tabler.io/icons/icon/plus -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="icon icon-2">
+                            <path d="M12 5l0 14"></path>
+                            <path d="M5 12l14 0"></path>
+                        </svg>
+                        Back
+                    </a>
+                </div>
+            </div>
+            <div class="card-body p-0">
+                <div class="card">
+                    <div class="table-responsive">
+                        <table class="table table-vcenter card-table">
+                            <tbody>
+                                <tr>
+                                    <td>Full Name</td>
+                                    <td>{{ $kyc_request->full_name }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Email</td>
+                                    <td>{{ $kyc_request->user->email }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Date oof birth</td>
+                                    <td>{{ $kyc_request->date_of_birth }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Gender</td>
+                                    <td>{{ ucfirst($kyc_request->gender) }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Status</td>
+                                    <td> @if ($kyc_request->status == 'approved')
+                                        <span class="badge bg-success-lt">Approved</span>
+                                    @elseif($kyc_request->status == 'pending')
+                                            <span class="badge bg-warning-lt">Pending</span>
+                                        @elseif($kyc_request->status == 'rejected')
+                                            <span class="badge bg-danger-lt">Rejected</span>
+                                        @endif
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Document Type</td>
+                                    @if ($kyc_request->document_type == 'id_card')
+                                        <td>Id Card</td>
+                                    @elseif($kyc_request->document_type == 'passport')
+                                        <td>Passport</td>
+                                    @elseif($kyc_request->document_type == 'driving_license')
+                                        <td>Driving License</td>
+                                    @endif
+                                </tr>
+                                <tr>
+                                    <td>Document Scan Copy</td>
+                                    <td><a class="btn btn-primary"
+                                            href="{{ route('admin.kyc.download', $kyc_request) }}">Download</a></td>
+                                </tr>
+                                <tr>
+                                    <td>Change Status</td>
+                                    <td>
+                                        <form action="">
+                                            <div class="input-group">
+                                                <select name="" id="" class="form-control">
+                                                    <option value="approved">Approve</option>
+                                                    <option value="rejected">Reject</option>
+                                                    <option value="pending">Pending</option>
+                                                </select>
+                                                <button class="btn btn-primary" type="submit">Update</button>
+                                            </div>
+                                        </form>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
