@@ -70,9 +70,11 @@
     <script src="https://code.jquery.com/jquery-4.0.0.min.js"
         integrity="sha256-OaVG6prZf4v69dPg6PhVattBXkcOWQB62pdZ3ORyrao=" crossorigin="anonymous"></script>
     <script src="{{ asset('assets/global/upload-preview/jquery.uploadPreview.min.js') }}"></script>
+    <script src="https://cdn.tiny.cloud/1/zcpmrtj6pn0htsl1uclms4eltuc5lp10ac1didvxry6la2jq/tinymce/8/tinymce.min.js" referrerpolicy="origin" crossorigin="anonymous"></script>
     <script src="{{ asset('assets/admin/js/tabler.min.js?1750026893') }}"></script>
-    <!-- END GLOBAL MANDATORY SCRIPTS -->
+    @include('admin.layouts.script')
     @stack('scripts')
+    <!-- END GLOBAL MANDATORY SCRIPTS -->
 
 </body>
 

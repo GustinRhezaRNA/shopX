@@ -40,5 +40,4 @@ Route::group(['prefix' => 'vendor', 'as' => 'vendor.', 'middleware' => ['auth', 
 });
 
 
-
 require __DIR__ . '/auth.php';

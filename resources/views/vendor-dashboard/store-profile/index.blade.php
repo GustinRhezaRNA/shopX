@@ -14,20 +14,56 @@
                     @method('PUT')
 
                     <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-6">
                             <div class="mb-3">
-                                <x-input-image id="image-preview" name="avatar" image="" />
+                                <label for="" class="form-label required">Logo</label>
+                                <x-input-image id="image-preview" name="logo" image="" />
+                                <x-input-error :messages="$errors->get('logo')" class="mt-2" />
+
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="" class="form-label required">Banner</label>
+                                <x-input-image id="image-preview" name="banner" image="" />
+                                <x-input-error :messages="$errors->get('banner')" class="mt-2" />
                             </div>
                         </div>
 
-                        <div class="col-md-9">
+                        <div class="col-md-12">
                             <div class="mb-3">
-                                <label class="form-label">Name</label>
-                                <input type="text" class="form-control" name="name"
-                                    value="{{ auth('admin')->user()->name }}">
+                                <label class="form-label required">Name</label>
+                                <input type="text" class="form-control" name="name" value="{{ auth('web')->user()->name }}">
                                 <x-input-error :messages="$errors->get('name')" />
                             </div>
-
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label required">Email</label>
+                                <input type="email" class="form-control" name="email" value="{{ auth('web')->user()->email }}">
+                                <x-input-error :messages="$errors->get('email')" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label required">Phone</label>
+                                <input type="tel" class="form-control" name="phone">
+                                <x-input-error :messages="$errors->get('phone')" />
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="mb-3">
+                                <label class="form-label required">Short Description</label>
+                                <textarea class="form-control" name="short_description"> </textarea>
+                                <x-input-error :messages="$errors->get('short_description')" />
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="mb-3">
+                                <label  class="form-label required">Long Description</label>
+                                <textarea id="editor" class="form-control" name="long_description"> </textarea>
+                                <x-input-error :messages="$errors->get('long_description')" />
+                            </div>
                         </div>
                     </div>
 
