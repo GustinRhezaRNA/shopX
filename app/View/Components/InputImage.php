@@ -11,7 +11,7 @@ class InputImage extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct(public $name, public $image)
+    public function __construct(public $name, public $image, public $imageUploadId, public $imagePreviewId, public $imageLabelId)
     {
         //
     }

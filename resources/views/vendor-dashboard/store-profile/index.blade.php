@@ -1,4 +1,4 @@
-@extends('admin.layouts.app')
+@extends('vendor-dashboard.layouts.app')
 
 @section('contents')
     <div class="container-xl">
@@ -9,25 +9,23 @@
             </div>
 
             <div class="card-body">
-                <form method="post" action="{{ route('admin.profile.update') }}" enctype="multipart/form-data">
+                <form method="post" action="{{ route('vendor.store-profile.update', 1) }}" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
-
                     <div class="row">
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label for="" class="form-label required">Logo</label>
-                                <x-input-image id="image-preview" name="logo" image="" />
+                                <label for="" class="form-label ">Logo</label>
+                                <x-input-image imageUploadId="image-upload" imagePreviewId="image-preview" imageLabelId="image-label" name="logo" image="" />
                                 <x-input-error :messages="$errors->get('logo')" class="mt-2" />
-
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label for="" class="form-label required">Banner</label>
-                                <x-input-image id="image-preview" name="banner" image="" />
+                                <label for="" class="form-label ">Banner</label>
+                                <x-input-image imageUploadId="image-upload-two" imagePreviewId="image-preview-two" imageLabelId="image-label-two" name="banner" image="" />
                                 <x-input-error :messages="$errors->get('banner')" class="mt-2" />
-                            </div>
+                            </div>  
                         </div>
 
                         <div class="col-md-12">
@@ -53,6 +51,13 @@
                         </div>
                         <div class="col-md-12">
                             <div class="mb-3">
+                                <label class="form-label required">Address</label>
+                                <input type="tel" class="form-control" name="address">
+                                <x-input-error :messages="$errors->get('address')" />
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="mb-3">
                                 <label class="form-label required">Short Description</label>
                                 <textarea class="form-control" name="short_description"> </textarea>
                                 <x-input-error :messages="$errors->get('short_description')" />
@@ -60,7 +65,7 @@
                         </div>
                         <div class="col-md-12">
                             <div class="mb-3">
-                                <label  class="form-label required">Long Description</label>
+                                <label class="form-label required">Long Description</label>
                                 <textarea id="editor" class="form-control" name="long_description"> </textarea>
                                 <x-input-error :messages="$errors->get('long_description')" />
                             </div>
@@ -84,6 +89,14 @@
                 input_field: "#image-upload", // Default: .image-upload
                 preview_box: "#image-preview", // Default: .image-preview
                 label_field: "#image-label", // Default: .image-label
+                label_default: "Choose File", // Default: Choose File
+                label_selected: "Change File", // Default: Change File
+                no_label: false // Default: false
+            });
+            $.uploadPreview({
+                input_field: "#image-upload-two", // Default: .image-upload
+                preview_box: "#image-preview-two", // Default: .image-preview
+                label_field: "#image-label-two", // Default: .image-label
                 label_default: "Choose File", // Default: Choose File
                 label_selected: "Change File", // Default: Change File
                 no_label: false // Default: false

@@ -37,6 +37,7 @@ Route::group(['prefix' => 'vendor', 'as' => 'vendor.', 'middleware' => ['auth', 
 
     // Shop Profile Routes
     Route::get('/store-profile', [StoreController::class, 'index'])->name('store-profile.index');
+    Route::put('/store-profile/{id}', [StoreController::class, 'update'])->name('store-profile.update');
 });
 
 

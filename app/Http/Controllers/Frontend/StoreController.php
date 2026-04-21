@@ -3,15 +3,20 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Store;
+use App\Services\AlertService;
+use App\Traits\FileUploadTrait;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
 class StoreController extends Controller
 {
+    use FileUploadTrait;
+
     /**
      * Display a listing of the resource.
      */
-    public function index() :View
+    public function index(): View
     {
         return view('vendor-dashboard.store-profile.index');
     }
@@ -54,6 +59,43 @@ class StoreController extends Controller
     public function update(Request $request, string $id)
     {
         //
+        $request->validate([
+            'logo' => ['nullable', 'image', 'max:2048'],
+            'banner' => ['nullable', 'image', 'max:2048'],
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['nullable', 'email', 'max:255'],
+            'phone' => ['nullable', 'string', 'max:255'],
+            'address' => ['nullable', 'string', 'max:255'],
+            'short_description' => ['required', 'string', 'max:255'],
+            'long_description' => ['required', 'string', 'max:2000'],
+        ]);
+
+        $data = [
+            'logo' => $request->logo,
+            'banner' => $request->banner,
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'address' => $request->address,
+            'short_description' => $request->short_description,
+            'long_description' => $request->long_description,
+        ];
+
+        if ($request->hasFile('logo')) {
+            $data['logo'] = $this->uploadFile($request->file('logo'), 'stores');
+        }
+
+        if ($request->hasFile('banner')) {
+            $data['banner'] = $this->uploadFile($request->file('banner'), 'stores');
+        }
+
+        Store::updateOrCreate([
+            'seller_id' => auth('web')->user()->id,
+        ], $data);
+
+        AlertService::updated('Store profile updated successfully');
+
+        return redirect()->back();
     }
 
     /**
