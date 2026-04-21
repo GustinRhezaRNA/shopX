@@ -18,7 +18,8 @@ class StoreController extends Controller
      */
     public function index(): View
     {
-        return view('vendor-dashboard.store-profile.index');
+        $store = Store::where('seller_id', auth('web')->user()->id)->first();
+        return view('vendor-dashboard.store-profile.index', compact('store'));
     }
 
     /**
@@ -58,21 +59,20 @@ class StoreController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $store = Store::where('seller_id', auth('web')->user()->id)->first();
+
         $request->validate([
             'logo' => ['nullable', 'image', 'max:2048'],
             'banner' => ['nullable', 'image', 'max:2048'],
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['nullable', 'email', 'max:255'],
-            'phone' => ['nullable', 'string', 'max:255'],
-            'address' => ['nullable', 'string', 'max:255'],
+            'email' => ['required', 'email', 'max:255'],
+            'phone' => ['required', 'string', 'max:255'],
+            'address' => ['required', 'string', 'max:255'],
             'short_description' => ['required', 'string', 'max:255'],
             'long_description' => ['required', 'string', 'max:2000'],
         ]);
 
         $data = [
-            'logo' => $request->logo,
-            'banner' => $request->banner,
             'name' => $request->name,
             'email' => $request->email,
             'phone' => $request->phone,
@@ -82,11 +82,11 @@ class StoreController extends Controller
         ];
 
         if ($request->hasFile('logo')) {
-            $data['logo'] = $this->uploadFile($request->file('logo'), 'stores');
+            $data['logo'] = $this->uploadFile($request->file('logo'), $store?->logo, 'stores');
         }
 
         if ($request->hasFile('banner')) {
-            $data['banner'] = $this->uploadFile($request->file('banner'), 'stores');
+            $data['banner'] = $this->uploadFile($request->file('banner'), $store?->banner, 'stores');
         }
 
         Store::updateOrCreate([

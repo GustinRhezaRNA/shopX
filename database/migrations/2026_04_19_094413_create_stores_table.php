@@ -18,10 +18,10 @@ return new class extends Migration
             $table->string('banner')->default('/defaults/banner.webp');;
             $table->string('name');
             $table->string('phone');
+            $table->string('address');
             $table->string('email');
             $table->string('short_description');
             $table->text('long_description');
-
             $table->timestamps();
         });
     }
