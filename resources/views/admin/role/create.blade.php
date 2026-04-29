@@ -24,9 +24,21 @@
                         </div>
                     </div>
 
-                    <button type="submit" class="btn btn-primary">
-                        Update Account
-                    </button>
+                    <div class="row">
+                        @foreach ($permissions as $groupName => $permission)
+                            <div class="col md-4 mb-3">
+                                <h3>{{ $groupName }}</h3>
+                                @foreach ($permission as $item)
+                                    <label for="" class="form-check">
+                                        <input type="checkbox" class="form-check-input" name="permissions[]"
+                                            value="{{ $item->name }}">
+
+                                        <span class="form-check-label"></span>{{ $item->name }}</span>
+                                    </label>
+                                @endforeach
+                            </div>
+                        @endforeach
+                    </div>
                 </form>
 
                 <div class="card-footer">
