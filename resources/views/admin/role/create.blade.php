@@ -10,9 +10,8 @@
                 </div>
             </div>
             <div class="card-body ">
-                <form method="post" action="{{ route('admin.profile.update') }}" enctype="multipart/form-data">
+                <form method="post" action="{{ route('admin.role.store') }}" >
                     @csrf
-                    @method('PUT')
 
                     <div class="row">
                         <div class="col-md-9">
@@ -39,10 +38,11 @@
                             </div>
                         @endforeach
                     </div>
+
                 </form>
 
-                <div class="card-footer">
-
+                <div class="card-footer text-end">
+                    <button class="btn btn-primary mt-1" onclick="$('form').submit()">Submit</button>
                 </div>
             </div>
         </div>

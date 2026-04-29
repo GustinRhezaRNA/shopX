@@ -3,16 +3,18 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Services\AlertService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class RoleController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index() : View
+    public function index(): View
     {
         return view('admin.role.index');
     }
@@ -20,10 +22,10 @@ class RoleController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create() : View
+    public function create(): View
     {
         $permissions = Permission::all()->groupBy('group_name');
-        return view('admin.role.create',compact('permissions'));
+        return view('admin.role.create', compact('permissions'));
     }
 
     /**
@@ -32,6 +34,16 @@ class RoleController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+            'role' => ['required', 'string', 'max:255', 'unique:roles,name'],
+            'permissions' => ['required', 'array'],
+        ]);
+
+        $role = Role::create(['name' => $request->role, 'guard_name' => 'admin']);
+        $role->syncPermissions($request->permissions);
+
+        AlertService::created();
+        return redirect()->route('admin.role.index');
     }
 
     /**
