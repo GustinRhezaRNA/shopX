@@ -15,22 +15,29 @@
                         <table class="table table-vcenter card-table">
                             <thead>
                                 <tr>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Date of birth</th>
-                                    <th>Gender</th>
-                                    <th>Status</th>
+                                    <th>No. </th>
+                                    <th>Role</th>
+                                    <th>Permissions</th>
                                     <th class="w-1"></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                
+                                @foreach ($roles as $role)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $role->name }}</td>
+                                        <td><span class="badge bg-primary-lt">{{ $role->permissions_count }}</span></td>
+                                        <td class="text-secondary">
+                                            <a href="{{ route('admin.role.edit', $role) }}">Edit</a>
+                                        </td>
+
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
                 </div>
                 <div class="card-footer">
-                    
                 </div>
             </div>
         </div>
