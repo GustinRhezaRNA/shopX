@@ -852,6 +852,7 @@
                         <span class="nav-link-title"> Home </span>
                     </a>
                 </li>
+                @if(hasPermission(['KYC Management']))
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#navbar-base" data-bs-toggle="dropdown"
                         data-bs-auto-close="false" role="button" aria-expanded="false">
@@ -883,6 +884,7 @@
                         </div>
                     </div>
                 </li>
+                @endif
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#navbar-base" data-bs-toggle="dropdown"
                         data-bs-auto-close="false" role="button" aria-expanded="false">
@@ -904,13 +906,10 @@
                                 <a class="dropdown-item" href="{{ route('admin.role.index') }}">
                                     Role
                                 </a>
-                            </div>
-                        </div>
-                        <div class="dropdown-menu-columns">
-                            <div class="dropdown-menu-column">
                                 <a class="dropdown-item" href="{{ route('admin.role-users.index') }}">
                                     Role User
                                 </a>
+
                             </div>
                         </div>
                     </div>
