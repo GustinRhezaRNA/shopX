@@ -34,9 +34,11 @@
                                             @endforeach
                                         </td>
                                         <td class="text-secondary">
-                                            <a href="{{ route('admin.role-users.edit', $user->id) }}">Edit</a>
-                                            <a class="text-danger delete-item"
-                                                href="{{ route('admin.role-users.destroy', $user->id) }}">Delete</a>
+                                            @if (!$user->hasRole('Super Admin'))
+                                                <a href="{{ route('admin.role-users.edit', $user->id) }}">Edit</a>
+                                                <a class="text-danger delete-item"
+                                                    href="{{ route('admin.role-users.destroy', $user->id) }}">Delete</a>
+                                            @endif
                                         </td>
                                     </tr>
                                 @empty

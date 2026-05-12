@@ -18,20 +18,23 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label class="form-label">Name</label>
-                                <input type="text" class="form-control" name="name" value="{{ old('name', $user->name) }}">
+                                <input type="text" class="form-control" name="name"
+                                    value="{{ old('name', $user->name) }}">
                                 <x-input-error :messages="$errors->get('name')" />
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label class="form-label">Email</label>
-                                <input type="email" class="form-control" name="email" value="{{ old('email', $user->email) }}">
+                                <input type="email" class="form-control" name="email"
+                                    value="{{ old('email', $user->email) }}">
                                 <x-input-error :messages="$errors->get('email')" />
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label class="form-label">Password <small class="text-muted">(Leave empty if not changing)</small></label>
+                                <label class="form-label">Password <small class="text-muted">(Leave empty if not
+                                        changing)</small></label>
                                 <input type="password" class="form-control" name="password" value="">
                                 <x-input-error :messages="$errors->get('password')" />
                             </div>
@@ -49,7 +52,11 @@
                                 <select name="role" class="form-select">
                                     <option value="">Select Role</option>
                                     @foreach ($roles as $role)
-                                        <option value="{{ $role->name }}" {{ old('role', $user->roles->first()?->name) == $role->name ? 'selected' : '' }}>{{ $role->name }}</option>
+                                        @if ($role->name !== 'Super Admin')
+                                            <option value="{{ $role->name }}"
+                                                {{ old('role', $user->roles->first()?->name) == $role->name ? 'selected' : '' }}>
+                                                {{ $role->name }}</option>
+                                        @endif
                                     @endforeach
                                 </select>
                                 <x-input-error :messages="$errors->get('role')" />

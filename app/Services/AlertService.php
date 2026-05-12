@@ -23,4 +23,11 @@ class AlertService
         $notyf = app(NotyfInterface::class);
         $notyf->success($message ? $message : 'Deleted Successfully');
     }
+
+    public static function error($message = null)
+
+    {
+        $notyf = app(NotyfInterface::class);
+        $notyf->error($message ? $message : 'Something went wrong');
+    }
 }

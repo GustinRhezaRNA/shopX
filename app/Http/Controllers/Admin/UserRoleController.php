@@ -16,7 +16,7 @@ class UserRoleController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index() : View
+    public function index(): View
     {
         $users = Admin::with('roles')->get();
         return view('admin.role-users.index', compact('users'));
@@ -25,7 +25,7 @@ class UserRoleController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create() : View
+    public function create(): View
     {
         $roles = Role::all();
         return view('admin.role-users.create', compact('roles'));
@@ -43,12 +43,17 @@ class UserRoleController extends Controller
             'role' => ['required', 'exists:roles,name']
         ]);
 
+        if ($request->role === 'Super Admin') {
+            AlertService::error('You cannot assign Super Admin role');
+            return redirect()->route('admin.role-users.index');
+        }
+
         $user = Admin::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password)
         ]);
-        
+
         $user->assignRole($request->role);
 
         AlertService::created();
@@ -66,7 +71,7 @@ class UserRoleController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id) : View
+    public function edit(string $id): View
     {
         $user = Admin::findOrFail($id);
         $roles = Role::all();
@@ -79,13 +84,22 @@ class UserRoleController extends Controller
     public function update(Request $request, string $id)
     {
         $user = Admin::findOrFail($id);
-        
+        if ($user->hasRole('Super Admin')) {
+            AlertService::error('You cannot edit Super Admin user');
+            return redirect()->route('admin.role-users.index');
+        }
+
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:admins,email,' . $id],
             'password' => ['nullable', 'string', 'min:8', 'confirmed'],
             'role' => ['required', 'exists:roles,name']
         ]);
+
+        if ($request->role === 'Super Admin') {
+            AlertService::error('You cannot assign Super Admin role');
+            return redirect()->route('admin.role-users.index');
+        }
 
         $data = [
             'name' => $request->name,
@@ -114,7 +128,7 @@ class UserRoleController extends Controller
                 return response()->json(['status' => 'error', 'message' => 'Cannot delete Super Admin'], 403);
             }
             $user->delete();
-            
+
             AlertService::deleted();
             return response()->json(['status' => 'success', 'message' => 'User deleted successfully']);
         } catch (Throwable $th) {

@@ -48,7 +48,9 @@
                                 <select name="role" class="form-select">
                                     <option value="">Select Role</option>
                                     @foreach ($roles as $role)
-                                        <option value="{{ $role->name }}" {{ old('role') == $role->name ? 'selected' : '' }}>{{ $role->name }}</option>
+                                    @if ($role->name !== 'Super Admin')
+                                    <option value="{{ $role->name }}" {{ old('role') == $role->name ? 'selected' : '' }}>{{ $role->name }}</option>
+                                    @endif
                                     @endforeach
                                 </select>
                                 <x-input-error :messages="$errors->get('role')" />
