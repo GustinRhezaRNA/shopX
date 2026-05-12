@@ -9,6 +9,10 @@ if (!function_exists('hasPermission')) {
             return false;
         }
 
+        if ($user->hasRole('Super Admin')) {
+            return true;
+        }
+
         return $user->hasAnyPermission($permissions);
     }
 }
