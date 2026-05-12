@@ -9,11 +9,21 @@ use App\Services\MailService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
-class KycRequestController extends Controller
+class KycRequestController extends Controller implements HasMiddleware
 {
+
+    static function Middleware(): array
+    {
+        return [
+            new Middleware('permission:Kyc Management')
+        ];
+    }
+
     //
     function index(): View
     {
