@@ -27,5 +27,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             Frontend\UserSeeder::class,
         ]);
+        $this->call([
+            Admin\PermissionSeeder::class,
+        ]);
     }
 }
