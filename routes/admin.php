@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\KycRequestController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserRoleController;
+use App\Http\Controllers\SettingController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest:admin')
@@ -79,6 +80,8 @@ Route::middleware('auth:admin')
         Route::resource('/role', RoleController::class);
         Route::resource('/role-users', UserRoleController::class);
 
+        // Settings Routes
+        Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
     });
 
 
