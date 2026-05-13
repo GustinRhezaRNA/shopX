@@ -908,12 +908,12 @@
                         <div class="dropdown-menu">
                             <div class="dropdown-menu-columns">
                                 <div class="dropdown-menu-column">
-                                    @if (hasPermissionn(['Role Management']))
+                                    @if (hasPermission(['Role Management']))
                                         <a class="dropdown-item" href="{{ route('admin.role.index') }}">
                                             Role
                                         </a>
                                     @endif
-                                    @if (hasPermissionn(['Role Management']))
+                                    @if (hasPermission(['Role User Management']))
                                         <a class="dropdown-item" href="{{ route('admin.role-users.index') }}">
                                             Role User
                                         </a>
