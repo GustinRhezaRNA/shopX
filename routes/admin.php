@@ -8,8 +8,9 @@ use App\Http\Controllers\Admin\Auth\NewPasswordController;
 use App\Http\Controllers\Admin\Auth\PasswordController;
 use App\Http\Controllers\Admin\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Admin\Auth\VerifyEmailController;
-use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\KycRequestController;
+use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserRoleController;
 use App\Http\Controllers\SettingController;
@@ -79,6 +80,10 @@ Route::middleware('auth:admin')
         // Role Routes
         Route::resource('/role', RoleController::class);
         Route::resource('/role-users', UserRoleController::class);
+
+        // Category Routes
+        Route::get('/categories', [CategoryController::class, 'index'])
+            ->name('categories.index');
 
         // Settings Routes
         Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
