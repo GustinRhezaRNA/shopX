@@ -9,17 +9,19 @@
             <div class="row g-3">
                 <div class="col-md-12">
                     <div class="form-label">Site Name</div>
-                    <input type="text" class="form-control"  name="site_name" required>
+                    <input type="text" class="form-control" value="{{ config('settings.site_name') }}" name="site_name"
+                        required>
                     <x-input-error :messages="$errors->get('site_name')" class="mt-2" />
                 </div>
                 <div class="col-md-6">
                     <div class="form-label">Site Email</div>
-                    <input type="email" class="form-control"  name="site_contact">
+                    <input type="email" class="form-control" value="{{ config('settings.site_contact') }}"
+                        name="site_contact">
                     <x-input-error :messages="$errors->get('site_contact')" class="mt-2" />
                 </div>
                 <div class="col-md-6">
                     <div class="form-label">Site Phone</div>
-                    <input type="number" class="form-control"  name="site_phone">
+                    <input type="number" value="{{ config('settings.site_phone') }}" class="form-control" name="site_phone">
                     <x-input-error :messages="$errors->get('site_phone')" class="mt-2" />
                 </div>
             </div>
