@@ -3,13 +3,31 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
     //
-    function index()
+    function index(): View
     {
         return view('admin.category.index');
+    }
+
+    function store(Request $request): RedirectResponse
+    {
+        $data = $request->validate([
+            'name' => 'required|string|max:255',
+            'slug' => 'required|string|max:255|unique:categories,slug',
+            'parent_id' => 'nullable|exists:categories,id',
+            'is_active' => 'required|boolean',
+        ]);
+
+        $data['position'] = Category::where('parent_id', $data['parent_id'] ?? null)->max('position') + 1;
+
+        $category = Category::create($data);
+        return redirect()->route('admin.categories.index')->with('success', 'Category created successfully.');
     }
 }

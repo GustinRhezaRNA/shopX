@@ -84,10 +84,12 @@ Route::middleware('auth:admin')
         // Category Routes
         Route::get('/categories', [CategoryController::class, 'index'])
             ->name('categories.index');
+        Route::post('/categories', [CategoryController::class, 'store'])
+            ->name('categories.store');
 
         // Settings Routes
         Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
-        Route::put('/settings/general-settings', [SettingController::class, 'generalSettings'])->name('settings.general');
+        Route::put('/settings/general-settings', [SettingController::class, 'generalSettings'])->name('settings.store');
     });
 
 
