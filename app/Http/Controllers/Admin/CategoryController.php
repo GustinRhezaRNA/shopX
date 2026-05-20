@@ -25,6 +25,24 @@ class CategoryController extends Controller
             'is_active' => 'required|boolean',
         ]);
 
+        // prevent circular reference and max depth of 3
+        if ($data['parent_id'] ?? null) {
+            $parent = Category::find($data['parent_id']);
+
+            // Check for max depth of 3
+            $depth = 1;
+            $current = $parent;
+            while ($current->parent_id) {
+                $current = Category::find($current->parent_id);
+                $depth++;
+                if ($depth >= 3) {
+                    throw \Illuminate\Validation\ValidationException::withMessages([
+                        'parent_id' => 'Cannot assign parent category. Maximum depth of 3 exceeded.',
+                    ]);
+                }
+            }
+        }
+
         $data['position'] = Category::where('parent_id', $data['parent_id'] ?? null)->max('position') + 1;
 
         $category = Category::create($data);

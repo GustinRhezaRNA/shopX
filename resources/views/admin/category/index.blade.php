@@ -106,7 +106,7 @@
                                     `<option value="${category.id}" ${category.id == selectedId ? 'selected' : ''}>${prefix} ${category.name}</option>`;
 
                                 if (category.children && category.children.length > 0) {
-                                    addOptions(category.children, '--' ,depth + 1);
+                                    addOptions(category.children, prefix + '-' ,depth + 1);
                                 }
                             } else return;
                         });
@@ -127,6 +127,6 @@
 
             // Initial load
             clearForm();
-        })  
+        })
     </script>
 @endpush
