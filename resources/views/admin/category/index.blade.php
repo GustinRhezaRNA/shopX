@@ -72,18 +72,35 @@
                     is_active: $('#is_active').is(':checked') ? 1 : 0,
                     _token: "{{ csrf_token() }}"
                 }
+
                 $.ajax({
                     url: url,
                     method: method,
                     data: data,
                     success: function(response) {
                         console.log(response);
+                        clearForm();
+                        notyf.success(response.message);
                     },
                     error: function(xhr, status, error) {
-                        console.log(xhr.responseText);
+                        let errors = xhr.responseJSON.errors;
+                        $.each(errors, (field, messages) => {
+                            messages.forEach((msg) => {
+                                notyf.error(msg);
+                            });
+                        });
                     }
                 });
             });
+
+            // clear form
+            function clearForm() {
+                $('#name').val('');
+                $('#slug').val('');
+                $('#parent_id').val('');
+                $('#is_active').prop('checked', true);
+            }
+
         })
     </script>
 @endpush

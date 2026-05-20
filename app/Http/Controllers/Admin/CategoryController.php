@@ -16,7 +16,7 @@ class CategoryController extends Controller
         return view('admin.category.index');
     }
 
-    function store(Request $request): RedirectResponse
+    function store(Request $request)
     {
         $data = $request->validate([
             'name' => 'required|string|max:255',
@@ -28,6 +28,10 @@ class CategoryController extends Controller
         $data['position'] = Category::where('parent_id', $data['parent_id'] ?? null)->max('position') + 1;
 
         $category = Category::create($data);
-        return redirect()->route('admin.categories.index')->with('success', 'Category created successfully.');
+        return response()->json([
+            'success' => true,
+            'message' => 'Category created successfully',
+            'category' => $category,
+        ]);
     }
 }
