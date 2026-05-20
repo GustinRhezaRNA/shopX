@@ -93,14 +93,40 @@
                 });
             });
 
+
+            // load parent dropdown
+            function loadParentCategories(selectedId, excludedId) {
+                $.get("{{ route('admin.categories.nested') }}", function(categories) {
+                    let options = '<option value="">Select Parent Category</option>';
+
+                    function addOptions(categories, prefix, depth) {
+                        categories.forEach(category => {
+                            if (category.id !== excludedId) {
+                                options +=
+                                    `<option value="${category.id}" ${category.id == selectedId ? 'selected' : ''}>${prefix} ${category.name}</option>`;
+
+                                if (category.children && category.children.length > 0) {
+                                    addOptions(category.children, '--' ,depth + 1);
+                                }
+                            } else return;
+                        });
+                    }
+                    addOptions(categories, '', 0);
+                    $('#parent_id').html(options);
+                });
+            }
+
             // clear form
             function clearForm() {
                 $('#name').val('');
                 $('#slug').val('');
                 $('#parent_id').val('');
                 $('#is_active').prop('checked', true);
+                loadParentCategories(null, null);
             }
 
-        })
+            // Initial load
+            clearForm();
+        })  
     </script>
 @endpush

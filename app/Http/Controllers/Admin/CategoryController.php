@@ -34,4 +34,10 @@ class CategoryController extends Controller
             'category' => $category,
         ]);
     }
+
+    function getNestedCategories()
+    {
+        $categories = Category::getNested();
+        return response()->json($categories);
+    }
 }

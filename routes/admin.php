@@ -86,6 +86,8 @@ Route::middleware('auth:admin')
             ->name('categories.index');
         Route::post('/categories', [CategoryController::class, 'store'])
             ->name('categories.store');
+        Route::get('/categories/nested', [CategoryController::class, 'getNestedCategories'])
+            ->name('categories.nested');
 
         // Settings Routes
         Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
