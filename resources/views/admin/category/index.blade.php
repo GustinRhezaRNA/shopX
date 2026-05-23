@@ -1,5 +1,55 @@
 @extends('admin.layouts.app')
+@push('styles')
+    <style>
+        .dd-item.custom-cat-item {
+            border: none;
+            padding: 0;
+            margin-bottom: 0;
+            background: none;
+            border-radius: 0;
+        }
 
+        .dd-item-row.custom-cat-row {
+            user-select: text;
+            background: none;
+            gap: 4px;
+            border: 1px solid #e9ecef;
+            min-height: 38px;
+            display: flex;
+            align-items: center;
+            padding-left: 0.75rem;
+            /* px-2 */
+            padding-right: 0.75rem;
+            padding-top: 0.25rem;
+            /* py-1 */
+            padding-bottom: 0.25rem;
+        }
+
+        .dd-handle.custom-cat-handle {
+            cursor: move;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 0.5rem;
+            /* me-2 */
+        }
+
+        .cat-folder-icon {
+            font-size: 16px;
+            color: #6c757d;
+        }
+
+        .cat-label.custom-cat-label {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            flex: 1 1 auto;
+        }
+    </style>
+@endpush
 @section('contents')
     <div class="container-fluid mt-4">
         <div class="row">
@@ -10,7 +60,23 @@
                         <button class="btn btn-primary">New</button>
                     </div>
                     <div class="card-body">
-                        <div class="category-tree" class="dd"></div>
+                        <div id="category-tree" class="dd">
+                            <ol class="dd-list" style="margin-bottom: 0">
+                                <li class="dd-item custom-cat-item" data-id="">
+                                    <div class="dd-item-row custom-cat-row">
+                                        <div class="dd-handle custom-cat-handle" title="Drag to reorder">
+                                            <i class="ti ti-grip-horizontal"></i>
+                                        </div>
+
+                                        <i class="ti ti-folder cat-folder-icon"></i>
+
+                                        <div class="cat-label custom-cat-label" data-id="">
+                                            <span>Category Name</span>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ol>
+                        </div>
                         <div id="tree-loading" class=" text-center my-2">
                             <div class="spinner-border text-primary" role="status">
                             </div>
@@ -106,7 +172,7 @@
                                     `<option value="${category.id}" ${category.id == selectedId ? 'selected' : ''}>${prefix} ${category.name}</option>`;
 
                                 if (category.children && category.children.length > 0) {
-                                    addOptions(category.children, prefix + '-' ,depth + 1);
+                                    addOptions(category.children, prefix + '-', depth + 1);
                                 }
                             } else return;
                         });

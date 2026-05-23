@@ -16,6 +16,7 @@
     <link href="{{ asset('assets/admin/css/tabler.css') }}" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.44.0/dist/tabler-icons.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nestable2/1.6.0/jquery.nestable.min.css">
     <!-- END GLOBAL MANDATORY STYLES -->
 
     <!-- Upload Preview -->
@@ -26,6 +27,8 @@
         @import url("https://rsms.me/inter/inter.css");
     </style>
     <!-- END CUSTOM FONT -->
+
+    @stack('styles')
 </head>
 
 <body>
@@ -78,6 +81,7 @@
     <script src="{{ asset('assets/admin/js/tabler.min.js?1750026893') }}"></script>
     <script src="https://cdn.tiny.cloud/1/zcpmrtj6pn0htsl1uclms4eltuc5lp10ac1didvxry6la2jq/tinymce/8/tinymce.min.js"
         referrerpolicy="origin" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/nestable2/1.6.0/jquery.nestable.min.js"></script>
     @include('admin.layouts.scripts')
     <!-- END GLOBAL MANDATORY SCRIPTS -->
     @stack('scripts')
